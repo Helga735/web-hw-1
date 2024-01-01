@@ -16,20 +16,51 @@ BLUE = "\033[94m"
 MAGENTA = "\033[95m"
 RESET = "\033[0m"
 
+class UserInterface(ABC):
+    @abstractmethod
+    def show_information(self, data):
+        pass
+
+class ConsoleInterface(UserInterface):
+    def show_information(self, data):
+        console = Console()
+        table = Table(show_header=True, header_style="bold white")
+
+        # Додаємо стовпці до таблиці
+        table.add_column("Ім'я")
+        table.add_column("Країна")
+        table.add_column("Телефон")
+        table.add_column("Дата народження", justify="right")
+        table.add_column("Електронна пошта", justify="right")
+        table.add_column("Примітка", justify="right")
+        table.add_column("Теги", justify="right")
+
+        # Додаємо дані контактів до таблиці з використанням Text для форматування
+        for account in data:
+            name = Text(account['name'], style="blue")
+            country = Text(account['country'], style="yellow")
+            phone = Text(', '.join(account['phones']) if account['phones'] else "", style="blue")
+            birth = Text(account['birthday'].strftime('%d.%m.%Y') if account['birthday'] else "", style="yellow")
+            email = Text(account['email'], style="blue")
+            note = Text(account['note'], style="yellow")
+            tags = Text(', '.join(account['tags']) if account['tags'] else "", style="bold blue")
+
+            table.add_row(name, country, phone, birth, email, note, tags)
+
+        console.print(table)
 
 class AddressBookCLI(cmd.Cmd):
-    intro = f'{RESET}{
-        BLUE}Щоб побачити доступні команди наберіть {YELLOW}help{BLUE} чи {YELLOW}?{BLUE}.\nЩоб побачити інформацію про конкретну команду наберіть help [назва_команди]{RESET}{YELLOW}'
+    intro = f'{RESET}{BLUE}Щоб побачити доступні команди наберіть {YELLOW}help{BLUE} чи {YELLOW}?{BLUE}.\nЩоб побачити інформацію про конкретну команду наберіть help [назва_команди]{RESET}{YELLOW}'
     prompt = f'{YELLOW}>>>>>>>  '
     console = Console()
 
-    def __init__(self):
+    def __init__(self, user_interface: UserInterface = ConsoleInterface()):
         super().__init__()
         self.book = AddressBook()
+        self.ui = user_interface
 
     def default(self, line):
-        self.stdout.write(f"{RESET}{RED}Невідома команда:{
-                          RESET} {MAGENTA}{line}\n{RESET}{YELLOW}")
+        self.stdout.write(f"{RESET}{RED}Невідома команда:{RESET} {MAGENTA}{line}\n{RESET}{YELLOW}")
 
     def do_play_game(self, arg):
         'Запустити гру "Вгадай число": play_game'
@@ -39,18 +70,15 @@ class AddressBookCLI(cmd.Cmd):
 
     def do_sort_files(self, args):
         'Відсортувати файли в папці по вказаному шляху: sort_files'
-        folder_path = input(
-            f"{RESET}{BLUE}Будь ласка вкажіть шлях до папки\nв якій необхідно відсортувати файли: {RESET}{YELLOW}")
+        folder_path = input(f"{RESET}{BLUE}Будь ласка вкажіть шлях до папки\nв якій необхідно відсортувати файли: {RESET}{YELLOW}")
         folder_path = Path(folder_path)
         if not folder_path.exists() or not folder_path.is_dir():
-            self.console.print(
-                "Вказано невірний шлях. Спробуйте ще раз.", style="italic red")
+            self.console.print("Вказано невірний шлях. Спробуйте ще раз.", style="italic red")
             return
         try:
             # Виклик функції сортування
             main(folder_path.resolve())
-            self.console.print(f"Файли за шляхом {
-                               folder_path} були відсортовані.", style="italic blue")
+            self.console.print(f"Файли за шляхом {folder_path} були відсортовані.", style="italic blue")
         except Exception as e:
             self.console.print(f"An error occurred: {e}", style="italic red")
 
@@ -62,8 +90,7 @@ class AddressBookCLI(cmd.Cmd):
         birth = Birthday().value
         email = Email().value.strip()
         note = Note(input(f"{RESET}{BLUE}Нотатка: {RESET}{YELLOW}")).value
-        tags_input = input(
-            f"{RESET}{BLUE}Теги (через пробіл): {RESET}{YELLOW}")
+        tags_input = input(f"{RESET}{BLUE}Теги (через пробіл): {RESET}{YELLOW}")
         tags = [Tag(tag.strip()).value for tag in tags_input.split()]
         record = Record(name, country, phones, birth, email, note, tags)
         self.book.add(record)
@@ -71,11 +98,9 @@ class AddressBookCLI(cmd.Cmd):
 
     def do_search(self, arg):
         'Пошук за категоріями: search'
-        print(f"{RESET}{BLUE}Є наступні категорії: \nName \nCountry \nPhones \nBirthday \nEmail \nNote \nTags{
-              RESET}{YELLOW}")
+        print(f"{RESET}{BLUE}Є наступні категорії: \nName \nCountry \nPhones \nBirthday \nEmail \nNote \nTags{RESET}{YELLOW}")
         category = input(f'{RESET}{BLUE}Пошук за категорією: {RESET}{YELLOW}')
-        pattern = input(
-            f'{RESET}{BLUE}Введіть текст для пошуку: {RESET}{YELLOW}')
+        pattern = input(f'{RESET}{BLUE}Введіть текст для пошуку: {RESET}{YELLOW}')
 
         if category.lower() == 'tags':
             # Searching based on tags
@@ -84,8 +109,7 @@ class AddressBookCLI(cmd.Cmd):
             result = self.book.search(pattern, category)
 
         if not result:
-            self.console.print(
-                "Такий контакт відсутній в книзі контактів!", style="bold red")
+            self.console.print("Такий контакт відсутній в книзі контактів!", style="bold red")
             return
 
         table = Table(show_header=True, header_style="bold white")
@@ -103,33 +127,27 @@ class AddressBookCLI(cmd.Cmd):
         for account in result:
             name = Text(account['name'], style="blue")
             country = Text(account['country'], style="yellow")
-            phone = Text(
-                ', '.join(account['phones']) if account['phones'] else "", style="blue")
-            birth = Text(account['birthday'].strftime(
-                '%d.%m.%Y') if account['birthday'] else "", style="yellow")
+            phone = Text(', '.join(account['phones']) if account['phones'] else "", style="blue")
+            birth = Text(account['birthday'].strftime('%d.%m.%Y') if account['birthday'] else "", style="yellow")
             email = Text(account['email'], style="blue")
             note = Text(account['note'], style="yellow")
-            tags = Text(
-                ', '.join(account['tags']) if account['tags'] else "", style="bold blue")
+            tags = Text(', '.join(account['tags']) if account['tags'] else "", style="bold blue")
 
             table.add_row(name, country, phone, birth, email, note, tags)
 
-        self.console.print(table)
+        self.ui.show_information(table)
 
     def do_edit(self, arg):
         'Редагування контакту: edit'
         contact_name = input(f"{RESET}{BLUE}Ім'я контакту: {RESET}{YELLOW}")
-        parameter = input(
-            f'{RESET}{BLUE}Оберіть параметр для редагування\n(name, country, phones, birthday, email, note): {RESET}{YELLOW}').strip()
+        parameter = input(f'{RESET}{BLUE}Оберіть параметр для редагування\n(name, country, phones, birthday, email, note): {RESET}{YELLOW}').strip()
         new_value = input(f"{RESET}{BLUE}Нове значення: {RESET}{YELLOW}")
         self.book.edit(contact_name, parameter, new_value)
-        self.console.print("Контакт успішно відредаговано.",
-                           style="bold green")
+        self.console.print("Контакт успішно відредаговано.", style="bold green")
 
     def do_remove(self, arg):
         'Видалення контакту: remove'
-        pattern = input(
-            f"{RESET}{BLUE}Видалити (ім'я контакту чи номер телефону): {RESET}{YELLOW}")
+        pattern = input(f"{RESET}{BLUE}Видалити (ім'я контакту чи номер телефону): {RESET}{YELLOW}")
         self.book.remove(pattern)
         self.console.print("Контакт успішно видалено.", style="bold green")
 
@@ -137,15 +155,13 @@ class AddressBookCLI(cmd.Cmd):
         'Зберегти книгу контактів в файл: save'
         file_name = input(f"{RESET}{BLUE}Ім'я файла: {RESET}{YELLOW}")
         self.book.save(file_name)
-        self.console.print(
-            "Книга контактів успішно збережена.", style="bold green")
+        self.console.print("Книга контактів успішно збережена.", style="bold green")
 
     def do_load(self, arg):
         'Завантажити книгу контактів з файлу: load'
         file_name = input(f"{RESET}{BLUE}Ім'я файла: {RESET}{YELLOW}")
         self.book.load(file_name)
-        self.console.print(
-            "Книга контактів успішно завантажена.", style="bold green")
+        self.console.print("Книга контактів успішно завантажена.", style="bold green")
 
     def do_congratulate(self, arg):
         'Перевірити в яких контактів був день нарождення на цьому тижні: congratulate'
@@ -153,38 +169,14 @@ class AddressBookCLI(cmd.Cmd):
 
     def do_view(self, arg):
         'Переглянути книгу контактів: view'
-        table = Table(show_header=True, header_style="bold white")
-
-        # Додаємо стовпці до таблиці
-        table.add_column("Ім'я")
-        table.add_column("Країна")
-        table.add_column("Телефон")
-        table.add_column("Дата народження", justify="right")
-        table.add_column("Електронна пошта", justify="right")
-        table.add_column("Примітка", justify="right")
-        table.add_column("Теги", justify="right")
-
-        # Додаємо дані контактів до таблиці з використанням Text для форматування
-        for account in self.book.data:
-            name = Text(account['name'], style="blue")
-            country = Text(account['country'], style="yellow")
-            phone = Text(
-                ', '.join(account['phones']) if account['phones'] else "", style="blue")
-            birth = Text(account['birthday'].strftime(
-                '%d.%m.%Y') if account['birthday'] else "", style="yellow")
-            email = Text(account['email'], style="blue")
-            note = Text(account['note'], style="yellow")
-            tags = Text(
-                ', '.join(account['tags']) if account['tags'] else "", style="bold blue")
-
-            table.add_row(name, country, phone, birth, email, note, tags)
-
-        self.console.print(table)
+        # Отримати дані контактів
+        data = self.book.data
+        # Показати інформацію користувачу через інтерфейс
+        self.user_interface.show_information(data)
 
     def do_weather(self, arg):
         'Дізнатись погоду в місті: weather [city_name]'
-        city = arg or input(
-            f"{RESET}{BLUE}Введіть назву міста: {RESET}{YELLOW}")
+        city = arg or input(f"{RESET}{BLUE}Введіть назву міста: {RESET}{YELLOW}")
         api_key = '16bfe776fb8afe007ed1f21a6277aba2'  # Ваш API-ключ
         try:
             weather_data = get_weather(city, api_key)
@@ -199,4 +191,5 @@ class AddressBookCLI(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    AddressBookCLI().cmdloop()
+    console_interface = ConsoleInterface()
+    AddressBookCLI(console_interface).cmdloop()
