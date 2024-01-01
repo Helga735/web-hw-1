@@ -4,6 +4,7 @@ from rich.table import Table
 from rich.text import Text
 from pathlib import Path
 from .get_weather_module import get_weather, format_weather
+from abc import ABC, abstractmethod
 from .AddressBook import AddressBook, Record, Name, Phone, Birthday, Email, Country, Note, Tag
 from .main import main
 from .game import GuessNumberGame

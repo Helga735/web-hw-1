@@ -1,11 +1,9 @@
 import os
-from .src.Assistant_bot import AddressBookCLI
-# from src.Assistant_bot import AddressBookCLI
+from src.Assistant_bot import AddressBookCLI
 from rich.console import Console
 
 
-def main():
-    # if __name__ == "__main__":
+if __name__ == "__main__":
     console = Console()
 
     console.print('Привіт! Я Ваш помічник з контактами.', style="bold blue")
