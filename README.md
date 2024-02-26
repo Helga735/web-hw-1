@@ -1,127 +1,127 @@
-# dream_9_bot
+# Personal Assistant
+# Contact book dream_9_bot
+
+Overview.
+
+The dream_9_bot contact book is a simple command-line interface (CLI) application written in Python. It allows users to manage their personal address book, perform various operations on contacts, mark contacts with specific tags for easy search, sort files in the contact book, and even check the weather for a given city.
+
+Features.
+
+1. Add contacts: Easily add new contacts to your address book with information such as name, country, phone numbers, date of birth, email, and notes.
+2. Search contacts: Search by different categories such as name, country, phone numbers, birthday, email, or notes.
+3. Edit contacts: Change existing contact information, including name, country, phone numbers, birthday, email, or notes.
+4. Delete contacts: Delete contacts by name or phone number.
+5. Save and load: Save your address book to a file or load it from a file for easy storage.
+6. View contacts: Displays all contacts in a table format, making it easy to view and manage your address book.
+7. Weather information: Check the current weather for the specified city using the OpenWeatherMap API.
+8. Greeting contacts: Check which contacts you need to greet this week.
 ​
-Книга контактів dream_9_bot
+Usage.
+
+1. Installation: Make sure you have Python installed and install the necessary dependencies with:
+   pip install rich, pip install requests, and pip install setuptools.
+2. Run the program: Run the script by running the following command: python __main__.py
+3. Commands: Use the following commands in dream_9_bot:
+     'add': Add a new contact.
+     'search': Search for contacts using the specified criteria.
+     'edit': Edit existing contact information.
+     'remove': Delete a contact.
+     'save': Save the address book to a file.
+     'load': Load the address book from a file.
+     'congratulate': Check which of your contacts has a birthday coming up.
+     'view': View all contacts in a table format.
+     'weather': Get the weather for the specified city.
+4. Exit: To exit the program, use the exit command.
+
 ​
-Огляд
+Weather function
+
+Overview.
+
+The dream_9_bot contact book contains a weather function that allows you to check the weather for a specific city. Use the weather command followed by the city name, or you will be prompted to enter the city name when you execute the command.
+
+Note: Make sure you have a valid API key for the weather function. Replace the api_key placeholder in the script with your valid API key: api_key = 'your_openweathermap_api_key'
+
+Dependencies
+
+Rich: Python library for rich text and beautiful formatting in the terminal.
 ​
-Книга контактів dream_9_bot - це простий додаток з інтерфейсом командного рядка (CLI), написаний на мові Python. Вона дозволяє користувачам керувати особистою адресною книгою, виконувати різні операції над контактами, позначати контакти специфічними тегами для зручного пошуку, сортувати файли у книзі контактів і навіть перевіряти погоду для вказаного міста.
+Tagging function
+
+Overview.
+
+The tagging feature in dream_9_bot allows users to mark their contacts with specific tags for easy search and organization. Tags are a useful tool for categorizing contacts according to various criteria.
+
+To use tags
+
+1. Add tags to your contacts:
+ Use the 'tag' command to add tags to your contacts.
+ When you execute the command, the system will ask you for the name of the contact you want to add tags to.
+ Then enter the tags, separated by spaces, that you want to assign to this contact.
+     Here's an example of how to use it:
+         Command: tag_search
+         Enter the name of the contact: Olga
+         Enter the tags (for example, friends family): friends family
 ​
-Можливості
-​
-1. Додавання контактів: Легко додавайте нові контакти до вашої адресної книги з такими даними, як ім'я, країна, номери телефонів, дата народження, електронна пошта та нотатки.
-2. Пошук контактів: Виконуйте пошук за різними категоріями, такими як ім'я, країна, телефони, день народження, електронна пошта або нотатки.
-3. Редагування контактів: Зміна існуючої контактної інформації, включаючи ім'я, країну, телефони, день народження, електронну пошту або нотатки.
-4. Видалити контакти: Видалення контактів, вказавши ім'я або номер телефону.
-5. Зберегти та завантажити: збереження адресної книги у файл або завантаження її з файлу для зручного зберігання даних.
-6. Перегляд контактів: Відображення всіх контактів у табличному форматі, що полегшує перегляд і керування адресною книгою.
-7. Інформація про погоду: Перевірте поточну погоду для вказаного міста за допомогою OpenWeatherMap API.
-8. Привітання контактів: Перевіряйте кого з контактів необхідно буде привітати в поточному тижні.
-​
-Використання
-​
-1. Встановлення: Переконайтеся, що у вас встановлено Python, і встановіть необхідні залежності за допомогою:
-   pip install rich, pip install requests та pip install setuptools
-2. Запустіть програму: Запустіть скрипт, виконавши наступну команду: python __main__.py
-3. Команди: Використовуйте наступні команди в dream_9_bot:
-     'add': Додати новий контакт.
-     'search': Пошук контактів за вказаними критеріями.
-     'edit': редагування наявної контактної інформації.
-     'remove': Видалити контакт.
-     'save': Зберегти адресну книгу у файл.
-     'load': Завантажити адресну книгу з файлу.
-     'congratulate': Перевірити у кого з контактів скоро день народження.
-     'view': Переглянути всі контакти в табличному форматі.
-     'weather': Отримати погоду для вказаного міста.
-4. Вихід: Щоб вийти з програми, скористайтеся командою exit.
-​
-Функція погоди
-​
-Огляд
-​
-Книга контактів dream_9_bot містить функцію погоди, яка дозволяє перевірити погоду для певного міста. Скористайтеся командою weather, за якою слідує назва міста, або вам буде запропоновано ввести назву міста під час виконання команди.
-​
-Примітка: Переконайтеся, що у вас є дійсний ключ API для функції погоди. Замініть у скрипті заповнювач api_key на ваш дійсний ключ API: api_key = 'your_openweathermap_api_key'
-​
-Залежності
-​
-Rich: Бібліотека Python для розширеного тексту і красивого форматування в терміналі.
-​
-Функція тегів
-​
-Огляд
-​
-Функція тегів у книзі контактів dream_9_bot дозволяє користувачам позначати свої контакти специфічними тегами для подальшого зручного пошуку та організації. Теги є корисним інструментом для класифікації контактів за різними критеріями.
-​
-Використання тегів
-​
-1. Додавання тегів до контактів:
- Використайте команду 'tag' для додавання тегів до свої контактів.
- Під чам виконання команди, система запитає вас iм'я контакту, якому ви хочете додати теги.
- Потім введіть теги, розділені пробілами, які ви хочете призначити цьому контакту.
-     Приклад використання:
-         Команда: tag_search
-         Введіть ім'я контакту: Ольга
-         Введіть теги(наприклад, friends family): friiends family
-​
-2. Пошук за тегами
- Використайте команду 'tag_search' для пошуку контактів за конкретним тегом.
- Введіть тег, і програма виведе список контактів, які мають цей тег.
-     Приклад використання:
-         Команда: tad_search
-         Введіть тег для пошуку(накприклад, family): family
-​
-3. Видалення тегів:
- Використайте команду 'remove_tag' для видалення тегів з контакту.
- Введіть ім'я контакту, а потім введіть теги, які ви хочете видалити.
-     Приклад використання:
-         Команда: remove_tag
-         Введіть ім'я контакту: Ольга
-         Введіть теги для видалення(наприклад, family): family
-​
-Залежності
-​
-Для користуванням всіма функцціями dream_9_bot, переконайтеся що у вас встановлено бібліотеку Rich, виконавши наступну команду:
+2. Search by tag
+ Use the 'tag_search' command to search for contacts by a specific tag.
+ Enter a tag and the program will display a list of contacts that have that tag.
+     An example of how to use it:
+         Command: tad_search
+         Enter a tag to search for (for example, family): family
+
+3. Removing tags:
+ Use the 'remove_tag' command to remove tags from a contact.
+ Enter the name of the contact and then enter the tags you want to remove.
+     Example of usage:
+         Command: remove_tag
+         Enter the name of the contact: Olga
+         Enter the tags you want to delete (for example, family): family
+
+Dependencies.
+
+To use all the features of dream_9_bot, make sure you have the Rich library installed by running the following command:
 pip install rich
 
-Функція сортування файлів
+File sorting function
 
-Огляд
+Overview.
 
-Функція сортування файлів  призначена для сортування різних типів файлів у папки згідно їхнього формату в межах каталогу, вказаного користувачем. Нижче наведено опис розподілу файлів за їхнім форматом:
+The File Sort function is designed to sort different types of files into folders according to their format within a user-defined directory. Below is a description of how files are sorted by their format:
 
-Зображення
- JPEG: Файли у форматі JPEG сортуються у папку images/JPEG.
- PNG: Файли у форматі PNG сортуються у папку images/PNG.
- JPG: Файли у форматі JPG сортуються у папку images/JPG.
- SVG: Файли у форматі SVG сортуються у папку images/SVG.
+Images
+ JPEG: JPEG files are sorted into the images/JPEG folder.
+ PNG: PNG files are sorted into the images/PNG folder.
+ JPG: JPG files are sorted into the images/JPG folder.
+ SVG: SVG files are sorted into the images/SVG folder.
 ​
-Відео
- AVI: Відеофайли у форматі AVI сортуються у папку video/AVI.
- MP4: Відеофайли у форматі MP4 сортуються у папку video/MP4.
- MOV: Відеофайли у форматі MOV сортуються у папку video/MOV.
- MKV: Відеофайли у форматі MKV сортуються у папку video/MKV.
+Video.
+ AVI: Video files in AVI format are sorted into the video/AVI folder.
+ MP4: MP4 video files are sorted into the video/MP4 folder.
+ MOV: MOV videos are sorted into the video/MOV folder.
+ MKV: MKV videos are sorted into the video/MKV folder.
+
+Documents
+ DOC: Documents in DOC format are sorted into the documents/DOC folder.
+ DOCX: DOCX documents are sorted into the documents/DOCX folder.
+ TXT: Text documents are sorted into the documents/TXT folder.
+ PDF: PDF files are sorted into the documents/PDF folder.
+ XLSX: Spreadsheets in XLSX format are sorted into the documents/XLSX folder.
+ PPTX: PPTX presentations are sorted into the documents/PPTX folder.
+
+Audio.
+ MP3: MP3 audio files are sorted into the audio/MP3 folder.
+ OGG: OGG audio files are sorted into the audio/OGG folder.
+ WAV: WAV files are sorted into the audio/WAV folder.
+ AMR: AMR audio files are sorted into the audio/AMR folder.
 ​
-Документи
- DOC: Документи у форматі DOC сортуються у папку documents/DOC.
- DOCX: Документи у форматі DOCX сортуються у папку documents/DOCX.
- TXT: Текстові документи сортуються у папку documents/TXT.
- PDF: Файли у форматі PDF сортуються у папку documents/PDF.
- XLSX: Електронні таблиці у форматі XLSX сортуються у папку documents/XLSX.
- PPTX: Презентації у форматі PPTX сортуються у папку documents/PPTX.
+Other.
+ Files that don't match any of the specified formats are sorted into the OTHER folder.
 
-Аудіо
- MP3: Аудіофайли у форматі MP3 сортуються у папку audio/MP3.
- OGG: Аудіофайли у форматі OGG сортуються у папку audio/OGG.
- WAV: Аудіофайли у форматі WAV сортуються у папку audio/WAV.
- AMR: Аудіофайли у форматі AMR сортуються у папку audio/AMR.
-​
-Інші
- Файли, які не відповідають жодному зазначеному формату, сортуються у папку OTHER.
+Archives
+ Archive files are sorted into the archives/ARCHIVES folder.
 
-Архіви
- Архівні файли сортуються у папку archives/ARCHIVES.
-
-Після сортування порожні папки видаляються для підтримки чистоти та організації в каталозі. Якщо виникають проблеми з видаленням папок, виводиться відповідне повідомлення про помилку.
+After sorting, empty folders are deleted to keep the directory clean and organized. If there are problems with deleting folders, an error message is displayed.
 
 Зазначте шлях до каталогу, щоб використовувати цю функцію та організувати ваші файли за зазначеними критеріями.
 
