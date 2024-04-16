@@ -127,3 +127,11 @@ After sorting, empty folders are deleted to keep the directory clean and organiz
 
 Для використання цієї функції переконайтеся, що у вас встановлено необхідні бібліотеки та виконали встановлення за допомогою:
 pip install rich
+
+
+## Our team:
+* Developer: [chAek](https://github.com/aektann89)
+* Developer: [Andrew](https://github.com/Andrewchv)
+* Developer: [Aryna Reutska](https://github.com/xrendezvous)
+* Scrum Master + Developer: [Olha](https://github.com/HelgaTsar)
+* Team Lead + Repository Owner + Developer: [Serg](https://github.com/CodeCraftSerg) (ex [Obi-Wan-Serg](https://github.com/Obi-Wan-Serg))
